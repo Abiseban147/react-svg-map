@@ -25,7 +25,7 @@ class RadioSVGMap extends React.Component {
 		this.locations = locationsNodeList ? [...locationsNodeList] : null; // Convert to array only if defined to prevent error
 
 		// Set initial selected location
-		// TODO: Find a way to test it
+		// TODO: Find a way to test it (https://github.com/facebook/react/issues/7371#issuecomment-260946944)
 		if (this.props.selectedLocationId && this.locations) {
 			const selectedLocation = this.locations.find(location => location.id === this.props.selectedLocationId);
 
@@ -88,7 +88,12 @@ class RadioSVGMap extends React.Component {
 	 * @param {Event} event - Triggered click event
 	 */
 	handleLocationClick(event) {
-		this.selectLocation(event.target);
+		const clickedLocation = event.target;
+
+		// Select clicked location if not already selected
+		if (clickedLocation !== this.state.selectedLocation) {
+			this.selectLocation(clickedLocation);
+		}
 	}
 
 	/**
@@ -104,7 +109,7 @@ class RadioSVGMap extends React.Component {
 			event.preventDefault();
 
 			// Select focused location if not already selected
-			if (this.state.selectedLocation !== focusedLocation) {
+			if (focusedLocation !== this.state.selectedLocation) {
 				this.selectLocation(focusedLocation);
 			}
 

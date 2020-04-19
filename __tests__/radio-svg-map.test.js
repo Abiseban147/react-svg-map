@@ -29,6 +29,7 @@ describe('RadioSVGMap component', () => {
 	});
 
 	afterEach(() => {
+		handleOnChange.mockClear();
 		wrapper.unmount();
 	});
 
@@ -147,6 +148,13 @@ describe('RadioSVGMap component', () => {
 			location.simulate('click');
 
 			expect(handleOnChange).toHaveBeenCalledWith(location.getDOMNode());
+		});
+
+		test('does not call onChange handler when clicking on already selected location', () => {
+			location.simulate('click');
+			location.simulate('click');
+
+			expect(handleOnChange).toHaveBeenCalledTimes(1);
 		});
 	});
 
