@@ -150,7 +150,7 @@ describe('RadioSVGMap component', () => {
 		});
 	});
 
-	describe('Properties', () => {
+	describe('Rendering', () => {
 		test('displays map with default props', () => {
 			const component = renderer.create(<RadioSVGMap map={FakeMap} />);
 			const tree = component.toJSON();
